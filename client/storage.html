@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>内存+CPU监控</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/pic.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      /* div {
+        display: inline;
+
+    } */
+      #header {
+        background-color: aliceblue;
+        color: #000000;
+        font-size: 350%;
+        text-align: center;
+        border-radius: 10px;
+        font-weight: bold;
+      }
+      #input {
+        background-color: aliceblue;
+        font-weight: bold;
+      }
+      #info {
+        font-weight: bold;
+        background-color: aliceblue;
+        border-radius: 2%;
+        width: 300px;
+      }
+      #canvas {
+        background-color: aliceblue;
+        /* margin: 0 auto; */
+        text-align: center;
+        border-radius: 1%;
+        /* width: 1600px; */
+        height: 700px;
+        /* position: relative; */
+      }
+      #mycanvas {
+        position: absolute;
+        bottom: 0;
+      }
+      #footer {
+        background-color: aliceblue;
+        text-align: center;
+        color: #000000;
+        border-radius: 5px;
+      }
+      #wrap {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+
+  <script type="text/javascript">
+    if ('WebSocket' in window) {
+      var ws = new WebSocket('ws://localhost:8888/ws');
+      document.querySelector('input').onsubmit = function(e) {
+        var msg = document.querySelector('#m').value;
+        ws.send(msg);
+      };
+      // ws.onopen = function() {
+      //     ws.send(form.nodeValue);
+      // };
+      // ws.onmessage = function (evt) {
+      //     alert(evt.data);
+      // };
+    }
+  </script>
+
+  <body>
+    <div id="header">
+      windows内存+CPU监控系统
+    </div>
+    <br />
+    <div id="input">
+      <form action="" id="formid">
+        进程id <input type="text" id="m" />
+        <input type="submit" value="开始监控" />
+        <input type="button" value="停止监控" />
+        <input type="reset" value="清除输入" />
+      </form>
+    </div>
+    <br />
+    <div id="wrap">
+      <div id="info">
+        <span>进程名称：</span><br />
+        <span>开始时间：</span><br />
+        <span>总执行时间：</span><br />
+        <span>自动保存执行时间：</span><br />
+        <span>内存最大值：</span><br />
+        <span>内存最小值：</span><br />
+        <span>内存当前值：</span><br />
+        <span>CPU最大值：</span><br />
+        <span>CPU最小值：</span><br />
+        <span>CPU当前值：</span><br />
+      </div>
+      <div id="canvas">
+        <div>
+          内存图形（MB）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU图形（%）
+        </div>
+        <br />
+        <canvas width="785" height="600" style="border:1px solid #000000"
+          >浏览器不支持画布</canvas
+        >
+        <canvas width="785" height="600" style="border:1px solid #000000"
+          >浏览器不支持画布</canvas
+        >
+      </div>
+    </div>
+    <br />
+    <footer id="footer">
+      Copyright@hjimi
+    </footer>
+  </body>
+</html>
