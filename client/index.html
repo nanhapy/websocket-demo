@@ -33,12 +33,6 @@
           result.innerHTML = '已连接上！';
           console.log('已连接上！');
         };
-
-        document.querySelector('form').onsubmit = function(e) {
-          var msg = document.querySelector('#m').value;
-          ws.send(msg);
-          return false;
-        };
         ws.onmessage = function(e) {
           console.log(e.data);
           var textnode = document.createTextNode(e.data);
@@ -48,6 +42,11 @@
         };
         ws.onclose = function() {
           console.log('连接已关闭！');
+        };
+        document.querySelector('form').onsubmit = function(e) {
+          var msg = document.querySelector('#m').value;
+          ws.send(msg);
+          return false;
         };
       } else {
         alert('您的浏览器不支持 WebSocket！');

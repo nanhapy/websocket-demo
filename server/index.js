@@ -9,14 +9,16 @@ var server = ws
       if (msg) {
         //如果消息不是空，将接收到的消息发送给客户端
         setInterval(function() {
-          connect.send(
-            '服务端已收到消息：' +
-              msg +
-              '服务端发来消息： Hello,' +
-              msg +
-              ' 时间：' +
-              new Date()
-          );
+          if (connect.readyState === connect.OPEN) {
+            connect.send(
+              '服务端已收到消息：' +
+                msg +
+                '服务端发来消息： Hello,' +
+                msg +
+                ' 时间：' +
+                new Date()
+            );
+          }
         }, 2000);
       }
     });

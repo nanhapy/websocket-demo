@@ -56,22 +56,6 @@
     </style>
   </head>
 
-  <script type="text/javascript">
-    if ('WebSocket' in window) {
-      var ws = new WebSocket('ws://localhost:8888/ws');
-      document.querySelector('input').onsubmit = function(e) {
-        var msg = document.querySelector('#m').value;
-        ws.send(msg);
-      };
-      // ws.onopen = function() {
-      //     ws.send(form.nodeValue);
-      // };
-      // ws.onmessage = function (evt) {
-      //     alert(evt.data);
-      // };
-    }
-  </script>
-
   <body>
     <div id="header">
       windows内存+CPU监控系统
@@ -81,7 +65,7 @@
       <form action="" id="formid">
         进程id <input type="text" id="m" />
         <input type="submit" value="开始监控" />
-        <input type="button" value="停止监控" />
+        <input id="stop" type="button" value="停止监控" />
         <input type="reset" value="清除输入" />
       </form>
     </div>
@@ -128,5 +112,36 @@
     <footer id="footer">
       Copyright@hjimi
     </footer>
+    <script type="text/javascript">
+      if ('WebSocket' in window) {
+        var ws = new WebSocket('ws://localhost:9088');
+        document.querySelector('form').onsubmit = function(e) {
+          var msg = document.querySelector('#m').value;
+          ws.send(msg);
+          return false;
+        };
+        document.querySelector('#stop').onclick = function(e) {
+          if (ws) {
+            ws.close();
+          }
+        };
+
+        ws.onopen = function() {
+          // result.innerHTML = '已连接上！';
+          console.log('已连接上！');
+        };
+
+        ws.onmessage = function(e) {
+          console.log(e.data);
+          // var textnode = document.createTextNode(e.data);
+          // var divnode = document.createElement('DIV');
+          // divnode.appendChild(textnode);
+          // result.appendChild(divnode);
+        };
+        ws.onclose = function() {
+          console.log('连接已关闭！');
+        };
+      }
+    </script>
   </body>
 </html>
