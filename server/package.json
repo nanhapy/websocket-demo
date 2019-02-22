@@ -1,0 +1,10 @@
+{
+  "name": "ws-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "lei zhao",
+  "license": "MIT",
+  "dependencies": {
+    "nodejs-websocket": "^1.7.2"
+  }
+}
